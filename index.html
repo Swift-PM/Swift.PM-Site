@@ -1,0 +1,28 @@
+---
+layout: default
+---
+
+<h2>Recent Packages</h2>
+<div class="posts">
+  {% for post in paginator.posts %}
+    <article class="post">
+
+      <h3><a href="{{ post.package_url }}">{{ post.title }}</a><span style="font-size:0.8em">  By {{ post.post_author }}</span></h3>
+
+      
+      <div class="entry">
+        {{ post.excerpt }}
+      </div>
+    </article>
+  {% endfor %}
+</div>
+
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path }}" class="previous">Previous</a>
+  {% endif %}
+  <span class="page_number ">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+  {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path }}" class="next">Next</a>
+  {% endif %}
+</div>
