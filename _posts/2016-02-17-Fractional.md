@@ -5,6 +5,6 @@ post_author: Jaden Geller
 package_url: https://github.com/JadenGeller/Fractional
 ---
 
-Swift fractional numbers
+Swift fractional numbers.
 
 <!--PKG_END-->
