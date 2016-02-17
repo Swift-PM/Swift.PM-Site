@@ -4,7 +4,8 @@ layout: default
 
 <h2>All Packages</h2>
 <div class="posts">
-  {% for post in site.posts %}
+  {% assign sorted_all = site.posts | sort %}
+  {% for post in sorted_all %}
     <article class="post">
 
       <h3><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
