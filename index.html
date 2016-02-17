@@ -8,9 +8,10 @@ layout: default
     <article class="post">
 
       <h3><a href="{{ post.package_url }}">{{ post.title }}</a><span style="font-size:0.8em">  By {{ post.post_author }}</span></h3>
-      {% if post.tags.size > 0 %}
-      {% capture tags_content %}Tags: {% if post.tags.size == 1 %}<i class="fa fa-tag"></i>{% else %}<i class="fa fa-tags"></i>{% endif %}{% endcapture %}
-      {% for post_tag in post.tags %}
+      {% assign tagz = post.page.tags %}
+      {% if tagz.size > 0 %}
+      {% capture tags_content %}Tags: {% if tagz.size == 1 %}<i class="fa fa-tag"></i>{% else %}<i class="fa fa-tags"></i>{% endif %}{% endcapture %}
+      {% for post_tag in tagz %}
           {% for data_tag in site.data.tags %}
               {% if data_tag.slug == post_tag %}
                   {% assign tag = data_tag %}
