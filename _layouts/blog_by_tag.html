@@ -7,6 +7,9 @@ layout: default
     {% if site.tags[page.tag] %}
         {% for post in site.tags[page.tag] %}
             <h3><a href="{{ post.package_url }}">{{ post.title }}</a><span style="font-size:0.8em">  By {{ post.post_author }}</span></h3>
+            <div class="entry">
+              {{ post.excerpt }}
+            </div>
         {% endfor %}
     {% else %}
         <p>There are no posts for this tag.</p>
