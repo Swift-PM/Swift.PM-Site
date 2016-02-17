@@ -1,4 +1,4 @@
-#Swift.PM Registry
+#[Swift.PM](http://swift.pm) Registry
 ##An unofficial registry of Swift packages
 
 
