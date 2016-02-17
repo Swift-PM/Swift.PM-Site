@@ -1,11 +1,17 @@
-- slug: logic
-  name: Logic
-
 - slug: osx
-  name: OSX
+  name: 'OS X'
 
 - slug: ios
-  name: iOS
+  name: 'iOS'
+
+- slug: tvos
+  name: 'tvOS'
+
+- slug: watchos
+  name: 'watchOS'
 
 - slug: linux
-  name: Linux
+  name: 'Linux'
+
+- slug: logic
+  name: 'Logic'

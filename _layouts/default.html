@@ -35,7 +35,10 @@
             <a href="https://github.com/rsmoz/swift.pm#contributing">Add Package</a>
           </nav>
         </header>
-        <div>Tags: <a href="/osx.html">OS X</a></div> &middot; <a href="/ios.html">iOS</a></div> &middot; <a href="/linux.html">Linux</a></div>
+        Find Packages:
+        {% for tag in site.data.tags %}
+          <a style="padding-left: 0.7em;" href="/tag/{{ tag.slug }}.html">{{ tag.name }}</a>
+        {% endfor %}
       </div>
     </div>
 

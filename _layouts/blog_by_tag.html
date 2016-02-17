@@ -2,14 +2,16 @@
 layout: default
 ---
 
-<h1>Packages with tag <strong>{{ page.tag }}</strong></h1>
-<div>
+<h2>Packages with tag <span style="text-decoration: underline;">{{ page.tag }}</span></h2>
+<div class="posts">
     {% if site.tags[page.tag] %}
         {% for post in site.tags[page.tag] %}
+        <article class="post">
             <h3><a href="{{ post.package_url }}">{{ post.title }}</a><span style="font-size:0.8em">  By {{ post.post_author }}</span></h3>
             <div class="entry">
               {{ post.excerpt }}
             </div>
+        </article>
         {% endfor %}
     {% else %}
         <p>There are no posts for this tag.</p>
