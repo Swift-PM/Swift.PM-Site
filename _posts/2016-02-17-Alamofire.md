@@ -5,6 +5,6 @@ post_author: Alamofire
 package_url: https://github.com/Alamofire/Alamofire
 ---
 
-Elegant HTTP Networking in Swift.
+Elegant HTTP Networking.
 
 <!--PKG_END-->
