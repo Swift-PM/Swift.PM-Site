@@ -6,13 +6,13 @@ let yamlDataLoc = folder + "/_data/tags.yml"
 
 extension String {
   func replacing(mapping: [String:String]) -> String {
-    return mapping.reduce(self) { acc, kv in
-      let (from, to) = kv
-      return acc.stringByReplacingOccurrencesOfString(from, withString: to)
-    }
+	return mapping.reduce(self) { acc, kv in
+	  let (from, to) = kv
+	  return acc.stringByReplacingOccurrencesOfString(from, withString: to)
+	}
   }
   func removing(toRemove: [String]) -> String {
-  	return self.replacing(Dictionary<String,String>(toRemove.map {($0, "")}))
+	return self.replacing(Dictionary<String,String>(toRemove.map {($0, "")}))
   }
 }
 
@@ -61,56 +61,56 @@ func parseCurrentTags() {
 
 func addPackage() {
 
-    print("Enter package title")
-    let title = readLine()!
+	print("Enter package title")
+	let title = readLine()!
 
-    print("Enter package author")
-    let author = readLine()!
+	print("Enter package author")
+	let author = readLine()!
 
-    print("Enter package URL")
-    guard let urlString = readLine(), let url = NSURL(string: urlString) else { //Not failing when it should
-      exit(1)
-    }
+	print("Enter package URL")
+	guard let urlString = readLine(), let url = NSURL(string: urlString) else { //Not failing when it should
+	  exit(1)
+	}
 
-    print("Package description")
-    let desc = readLine()!
+	print("Package description")
+	let desc = readLine()!
 
-    let tags = ["osx", "ios", "linux"] //Parse from tags file
-    let displayTags = tags.reduce("") { acc, elem in acc + elem + "\n" }
+	let tags = ["osx", "ios", "linux"] //Parse from tags file
+	let displayTags = tags.reduce("") { acc, elem in acc + elem + "\n" }
 
-    print("Any of the following tags?: " + displayTags + "Enter any tags with appropriate capitalization separated by spaces, as in:")
-    print("OneTag SecondTag ThirdTag\n")
-    print("Otherwise, just press enter")
-    let packageTags = readLine()!.componentsSeparatedByString(" ")
-    //Tags that weren't found: ask if they want to create them
+	print("Any of the following tags?: " + displayTags + "Enter any tags with appropriate capitalization separated by spaces, as in:")
+	print("OneTag SecondTag ThirdTag\n")
+	print("Otherwise, just press enter")
+	let packageTags = readLine()!.componentsSeparatedByString(" ")
+	//Tags that weren't found: ask if they want to create them
 
-    let components = NSCalendar.currentCalendar().components([.Day , .Month , .Year], fromDate: NSDate())
-    let year = components.year
-    let month = String(format: "%02d", components.month)
-    let day = String(format: "%02d", components.day)
+	let components = NSCalendar.currentCalendar().components([.Day , .Month , .Year], fromDate: NSDate())
+	let year = components.year
+	let month = String(format: "%02d", components.month)
+	let day = String(format: "%02d", components.day)
 
-    let fileTitle = title.replacing([" " : "-"]).lowercaseString
+	let fileTitle = title.replacing([" " : "-"]).lowercaseString
 
-    //Some path-appending operations are marked as unavailable, hence the manual path concat
+	//Some path-appending operations are marked as unavailable, hence the manual path concat
 
-    let mdName = "\(year)-\(month)-\(day)-" + fileTitle + ".md"
+	let mdName = "\(year)-\(month)-\(day)-" + fileTitle + ".md"
 
-    let contents = try! String(contentsOfFile: folder + "/YYYY-MM-DD-Template.md")
-    let formattedOutTags = "tags: [\(packageTags.joinWithSeparator(", "))]"
+	let contents = try! String(contentsOfFile: folder + "/YYYY-MM-DD-Template.md")
+	let formattedOutTags = "tags: [\(packageTags.joinWithSeparator(", "))]"
 
-    let newWrite = contents.replacing([
-      "Package Title"                     : title,
-      "Package Owner"                     : author,
-      "link/to/package/information/page"  : url.absoluteString,
-      "tags: [ios, osx, linux]"           : formattedOutTags,
-      "Short package description here. No line breaks, please. Use periods."  :  desc
-    ])
+	let newWrite = contents.replacing([
+	  "Package Title"                     : title,
+	  "Package Owner"                     : author,
+	  "link/to/package/information/page"  : url.absoluteString,
+	  "tags: [ios, osx, linux]"           : formattedOutTags,
+	  "Short package description here. No line breaks, please. Use periods."  :  desc
+	])
 
-    let createFilePath = folder + "/_posts/" + mdName
+	let createFilePath = folder + "/_posts/" + mdName
 
-    //writing
+	//writing
 
-    try! newWrite.writeToFile(createFilePath, atomically: true, encoding: NSUTF8StringEncoding)
+	try! newWrite.writeToFile(createFilePath, atomically: true, encoding: NSUTF8StringEncoding)
 
 }
 
@@ -151,7 +151,7 @@ print(
 "For A Brighter Future\n\n" +
 "Greetings. Enter the number of your choice:\n" +
 "1 Add a package with the option to create new tags\n" +
-"2 Just add new tags"
+"2 Just add new tags\n"
 )
 
 let selected = readLine()!
