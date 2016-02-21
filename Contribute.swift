@@ -1,19 +1,22 @@
 import Foundation
 
+//A rushed work-in-progress
+//Add confirmations
+
 let filemgr = NSFileManager.defaultManager()
 let folder = filemgr.currentDirectoryPath
 let yamlDataLoc = folder + "/_data/tags.yml"
 
 extension String {
-  func replacing(mapping: [String:String]) -> String {
-	return mapping.reduce(self) { acc, kv in
-	  let (from, to) = kv
-	  return acc.stringByReplacingOccurrencesOfString(from, withString: to)
+	func replacing(mapping: [String:String]) -> String {
+		return mapping.reduce(self) { acc, kv in
+		  let (from, to) = kv
+		  return acc.stringByReplacingOccurrencesOfString(from, withString: to)
+		}
 	}
-  }
-  func removing(toRemove: [String]) -> String {
-	return self.replacing(Dictionary<String,String>(toRemove.map {($0, "")}))
-  }
+	func removing(toRemove: String...) -> String {
+		return self.replacing(Dictionary<String,String>(toRemove.map {($0, "")}))
+	}
 }
 
 extension Dictionary { //From SwiftCheck
@@ -33,6 +36,7 @@ extension Array {
 
 		let separated: ([Element], [Element]) = withIndex.reduce(([],[])) { acc, elem in
 			let (ind, value) = elem
+
 			if ind % 2 == 0 {
 				return (acc.0 + [value], acc.1)
 			}
@@ -50,10 +54,12 @@ extension Array {
 
 func parseCurrentTags() {
 	let tagYML = try! String(contentsOfFile: yamlDataLoc)
-	let parsed = Array(tagYML
-										.removing(["\n", "'", "- slug","  name"])
-										.componentsSeparatedByString(": ")
-										.dropFirst())
+	let parsed = Array(
+						tagYML
+						.removing("\n", "'", "- slug","  name")
+						.componentsSeparatedByString(": ")
+						.dropFirst()
+	)
 
 
 
@@ -115,7 +121,7 @@ func addPackage() {
 }
 
 func guidedAddTag() {
-  addTag(readLine()!)
+	addTag(readLine()!)
 }
 
 func addTag(tagName: String) {
@@ -124,43 +130,49 @@ func addTag(tagName: String) {
 	let templateSample = try! String(contentsOfFile: tagsFolder + "/template.html")
 
 	let toWrite = templateSample.replacing(["TAGNAME" : tagName])
-  try! toWrite.writeToFile(tagsFolder + "/" + tagName.lowercaseString + ".html", atomically: true, encoding: NSUTF8StringEncoding)
-
-
+	try! toWrite.writeToFile(tagsFolder + "/" + tagName.lowercaseString + ".html", atomically: true, encoding: NSUTF8StringEncoding)
   
 
-  let tagYML = try! String(contentsOfFile: yamlDataLoc)
+	let tagYML = try! String(contentsOfFile: yamlDataLoc)
 
-  let writeYML = tagYML + "\n- slug: \(tagName.lowercaseString)\n  name: '\(tagName)'\n"
-  try! writeYML.writeToFile(yamlDataLoc, atomically: true, encoding: NSUTF8StringEncoding)
+	let writeYML = tagYML + "\n- slug: \(tagName.lowercaseString)\n  name: '\(tagName)'\n"
+	try! writeYML.writeToFile(yamlDataLoc, atomically: true, encoding: NSUTF8StringEncoding)
 
 }
 
+func main() {
+	
+	print(
+		"   ____           _  ____ __      ____   __  ___\n" +
+		"  / ___/_      __ (_)/ __// /_    / __ \\ /  |/  /\n" +
+		"  \\__ \\| | /| / // // /_ / __/   / /_/ // /|_/ / \n" +
+		" ___/ /| |/ |/ // // __// /_ _  / ____// /  / /  \n" +
+		"/____/ |__/|__//_//_/   \\__/(_)/_/    /_/  /_/   \n\n" +
+		"A Registry\n" +
+		"For Packages\n" +
+		"For A Package Manager\n" +
+		"For A Programming Language\n" +
+		"For A Brighter Future\n\n" +
+		"Greetings. Enter the number of your choice:\n" +
+		"1 Add a package with the option to create new tags\n" +
+		"2 Just add new tags\n"
+	)
 
-//A rushed work-in-progress
-print(
-"   ____           _  ____ __      ____   __  ___\n" +
-"  / ___/_      __ (_)/ __// /_    / __ \\ /  |/  /\n" +
-"  \\__ \\| | /| / // // /_ / __/   / /_/ // /|_/ / \n" +
-" ___/ /| |/ |/ // // __// /_ _  / ____// /  / /  \n" +
-"/____/ |__/|__//_//_/   \\__/(_)/_/    /_/  /_/   \n\n" +
-"A Registry\n" +
-"For Packages\n" +
-"For A Package Manager\n" +
-"For A Programming Language\n" +
-"For A Brighter Future\n\n" +
-"Greetings. Enter the number of your choice:\n" +
-"1 Add a package with the option to create new tags\n" +
-"2 Just add new tags\n"
-)
 
-let selected = readLine()!
-if selected == "1" {
-	addPackage()
+	func mainPrompt() {
+		switch readLine()!.removing(" ", "\t", ".") {
+			case "1": addPackage()
+			case "2": guidedAddTag()
+			case "420": print("What are you, 14?"); fallthrough
+			default: print("Invalid choice.Try again."); mainPrompt()
+		}
+	}
+
+	mainPrompt()
+
 }
-else if selected == "2" {
-  guidedAddTag()
-}
-else {
-	exit(1)
-}
+
+main()
+
+
+
