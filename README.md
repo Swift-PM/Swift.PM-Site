@@ -9,4 +9,5 @@
 4. Change `Template` in the filename to the name of your package
 5. Update the title, author, and package url in the file
 6. In `tags` list which operating systems your package supports (i.e. `osx`, `ios`, and/or `linux`). Support for other tags will be added soon.
-7. Open a pull request
+7. Open a pull request to master
+
