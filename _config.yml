@@ -81,3 +81,5 @@ exclude:
     - README.md
     - CNAME
     - YYYY-MM-DD-Template.md
+    - Contribute.swift
+    - tag/template.html
